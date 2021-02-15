@@ -1,0 +1,254 @@
+# set modifier
+set $super Mod4
+set $alt Mod1
+
+set $refresh_i3status killall-SIGUSR1 i3status
+
+# set font
+font pango: Noto Sans 12
+
+# Use Mouse+$super to drag floating windows to their wanted position
+floating_modifier $super
+
+#autostart
+exec --no-startup-id hsetroot -full ~/Pictures/Wallpapers/snow.jpg
+#exec --no-startup-id hsetroot -full ~/Pictures/Wallpapers/wallpaper2.jpg
+exec --no-startup-id xsettingsd &
+exec --no-startup-id compton -b
+exec --no-startup-id xss-lock -- ~/.config/i3/scripts/lock.sh
+exec --no-startup-id xss-lock -- ~/.config/i3/scripts/bluetooth.sh
+# exec --no-startup-id breaktimer
+# exec --no-startup-id dropbox start
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+
+##########################
+# Super-Shift Shortcuts  #
+##########################
+
+#  Firefox
+bindsym $super+Shift+w exec firefox
+
+# Emacs
+bindsym $super+Shift+e exec emacs
+
+# start dmenu (a program launcher)
+bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=10'"
+
+# move focused window
+bindsym $super+Shift+h move left
+bindsym $super+Shift+j move down
+bindsym $super+Shift+k move up
+bindsym $super+Shift+l move right
+
+# move focused container to workspace
+bindsym $super+Shift+1 move container to workspace 1
+bindsym $super+Shift+2 move container to workspace 2
+bindsym $super+Shift+3 move container to workspace 3
+bindsym $super+Shift+4 move container to workspace 4
+bindsym $super+Shift+5 move container to workspace 5
+bindsym $super+Shift+6 move container to workspace 6
+bindsym $super+Shift+7 move container to workspace 7
+bindsym $super+Shift+8 move container to workspace 8
+bindsym $super+Shift+9 move container to workspace 9
+
+# move focused workspace
+bindsym $super+Control+h exec i3-msg move workspace to output left
+bindsym $super+Control+l exec i3-msg move workspace to output right
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $super+Shift+r restart
+
+# exit i3
+bindsym $super+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+
+##########################
+# Super-Alt Shortcuts  #
+##########################
+
+bindsym $super+$alt+k exec /home/juancho/.config/i3/scripts/language/language.sh && $refresh_i3status
+bindsym $super+$alt+t exec /home/juancho/.config/i3/scripts/time/time.sh && $refresh_i3status
+bindsym $super+$alt+p exec /home/juancho/.config/i3/scripts/power/menu_power.sh
+bindsym $super+$alt+m exec /home/juancho/.config/i3/scripts/monitor/menu_monitors.sh
+
+#
+#Lock Screen just png
+bindsym $super+$alt+l exec --no-startup-id sleep 1 && xset dpms force suspend
+
+##########################
+# Super Shortcuts        #
+##########################
+
+# start a terminal
+bindsym $super+Return exec i3-sensible-terminal
+
+# start dmenu (a program launcher)
+bindsym $super+space exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 15'
+bindsym Control+space exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 15'
+bindsym Control+w exec rofi -lines 12 -padding 18 -width 60 -location 0 -show window -sidebar-mode -columns 3 -font 'Noto Sans 15'
+
+
+# kill focused window
+bindsym $super+c kill
+bindsym $alt+F4 kill
+
+# change focus
+bindsym $super+h focus left
+bindsym $super+j focus down
+bindsym $super+k focus up
+bindsym $super+l focus right
+
+# split in horizontal orientation
+bindsym $super+b split h
+
+# split in vertical orientation
+bindsym $super+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $super+a fullscreen toggle
+
+# change container layout split
+bindsym $super+s layout toggle split
+
+# toggle tiling / floating
+bindsym $super+f floating toggle
+
+# change focus between tiling / floating windows
+bindsym $super+Shift+space focus mode_toggle
+
+# switch to workspace
+bindsym $alt+Control+l workspace next
+bindsym $alt+Control+h workspace prev
+bindsym $super+1 workspace 1
+bindsym $super+2 workspace 2
+bindsym $super+3 workspace 3
+bindsym $super+4 workspace 4
+bindsym $super+5 workspace 5
+bindsym $super+6 workspace 6
+bindsym $super+7 workspace 7
+bindsym $super+8 workspace 8
+bindsym $super+9 workspace 9
+
+################
+# Special Keys # 
+################
+
+#Print 
+# bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'viewnior ~/$f'
+bindsym Print exec flameshot gui
+
+#change volume
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%- unmute
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle
+bindsym XF86AudioMicMute exec amixer set Capture toggle && amixer get Capture | grep '\[off\]' && notify-send "MIC switched OFF" || notify-send "MIC switched ON"
+
+# music control
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioStop exec playerctl stop
+
+#brightness control
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 && xbacklight > ~/.config/brightness && $refresh_i3status
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 && xbacklight > ~/.config/brightness && $refresh_i3status
+
+# Monitor Congiguration
+bindsym XF86Display exec /home/juancho/.config/i3/scripts/monitor/menu_monitors.sh
+
+################
+# Resize Keys # 
+################
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
+        bindsym Return mode "default"
+}
+bindsym $super+r mode "resize"
+
+##############################################################
+#                       GAPS                                 # 
+#  using the github package: https://github.com/Airblader/i3 #
+# gaps inner|outer|horizontal|vertical|top|right
+#      |bottom|left current|all set|plus|minus|toggle <px>
+# Examples
+# gaps inner all set 20
+# gaps outer current plus 5
+# gaps horizontal current plus 40
+# gaps outer current toggle 60
+##############################################################
+
+gaps inner 6
+gaps outer 6
+smart_borders on
+smart_gaps on
+mode "gaps" {
+    bindsym o mode "GAPS OUTER"
+    bindsym i mode "GAPS INNER"
+    bindsym Return mode "default"
+}
+
+mode "GAPS OUTER" {
+    bindsym plus gaps outer all plus 5
+    bindsym minus gaps outer all minus 5
+    bindsym 0 gaps outer all set 0
+    bindsym Return mode "default"
+}
+
+mode "GAPS INNER" {
+    bindsym plus gaps inner all plus 5
+    bindsym minus gaps inner all minus 5
+    bindsym 0 gaps inner all set 0
+    bindsym Return mode "default"
+}
+bindsym $super+g mode "gaps"
+
+
+################
+#  i3Bar       # 
+################
+bar {
+        colors {
+        background #212121
+        statusline #FFFFFF
+        separator #FFFFFF
+
+        # colour of border, background, and text
+        focused_workspace       #2f343f #bf616a #d8dee8
+        active_workspace        #2f343f #2f343f #d8dee8
+        inactive_workspace      #2f343f #2f343f #d8dee8
+        urgent_workspacei       #2f343f #ebcb8b #2f343f
+    }
+        status_command i3status
+}
+
+################
+#  Rules       # 
+################
+
+# window rules, you can find the window class using xprop
+# for_window [class=".*"] border pixel 10
+
+#assign [class=URxvt] 1
+#assign [class=Firefox|Transmission-gtk] 2
+#assign [class=Thunar|File-roller] 3
+#assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*] 4
+#assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
+#assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Pavucontrol|Exo-helper*|Lxrandr|Arandr] 6
+#for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
+#for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
+#for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
+
+################
+#  Styles      # 
+################
+# colour of border, background, text, indicator, and child_border
+client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
+client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background           #2f343f

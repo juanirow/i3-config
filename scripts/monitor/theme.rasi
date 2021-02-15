@@ -1,0 +1,124 @@
+
+/* ########### */
+
+* {
+  /* General */
+  text-font:                 "Comfortaa 14";
+  icon-font:                 "Hurmit Nerd Font Mono 48";
+  icon-font-small:           "Hurmit Nerd Font Mono 24";
+  option-6-listview-spacing: 10px;
+  menu-window-padding:       10px 35px;
+  menu-inputbar-margin:      10px 0px;
+  menu-prompt-padding:       10px 20px 10px 20px;
+  menu-prompt-margin:        0px 0px 0px -2px;
+  menu-element-border:       10px;
+  menu-element-padding:      8px 35px 20px -55px;
+
+  //Purple theme
+  //window-background:         #1A000D;
+  //window-border-color:       #270013;
+  //element-color:             #1A000D;
+  //element-border-color:      #212121;
+  //element-selected-bg:       #1A000D;
+  //my-text-color:             #FFFFFF;
+  //promp-background:          #270013;
+  //promp-border-color:        #212121;
+  //text-box-background:       #1A000D;
+  //selected:                  #FFFFFF;
+
+  window-background:         #212121;
+  window-border-color:       #929292;
+  element-color:             #212121;
+  element-border-color:      #929292;
+  element-selected-bg:       #929292;
+  my-text-color:             #FFFFFF;
+  promp-background:          #000000;
+  promp-border-color:        #929292;
+  text-box-background:       #5d5d5d;
+  selected:                  #FF0000;
+}
+
+/* ########### */
+
+#window {
+  width:            38%;
+  height:           20%;
+  background-color: @window-background;
+  border-color:     @window-border-color;
+  border:           3;
+}
+
+/* ########### */
+
+* {
+  background-color: @window-background;
+  text-color:       @my-text-color;
+  font:             @icon-font;
+}
+
+#horibox {
+  children: [ listview ];
+}
+#listview {
+  layout: horizontal;
+}
+#element {
+  padding:          @option-element-padding;
+  background-color: @element-color;
+}
+#element.selected {
+  background-color: @element-selected-background;
+  text-color:       @background;
+}
+
+/* ########### */
+
+* {
+  font: @text-font;
+}
+#window {
+  padding:  @menu-window-padding;
+  children: [ inputbar, horibox ];
+}
+#inputbar {
+  children: [ textbox-prompt-colon, prompt ];
+  margin:   @menu-inputbar-margin;
+}
+prompt,
+textbox-prompt-colon {
+  padding:          @menu-prompt-padding;
+  border:           2px;
+  border-color:     @promp-border-color;
+}
+#prompt {
+  margin:           @menu-prompt-margin;
+  background-color: @promp-background;
+  text-color:       @my-text-color;
+}
+#textbox-prompt-colon {
+  expand:           false;
+  str:              "Configure";
+  background-color: @text-box-background;
+  text-color:       @my-text-color;
+}
+#horibox {
+  padding: 0px;
+}
+#listview {
+  spacing: @option-6-listview-spacing;
+  lines:   4;
+}
+#element {
+  font:         @icon-font;
+  border:       @menu-element-border;
+  padding:      @menu-element-padding;
+  border-color: @element-border-color;
+  border:       2;
+  color:        #FFFFFF;
+}
+#element.selected {
+  border-color: @selected;
+  border:       2;
+  color:        #FFFFFF;
+}
+
