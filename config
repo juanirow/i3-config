@@ -170,6 +170,9 @@ mode "resize" {
 bindsym $super+r mode "resize"
 
 ##############################################################
+#
+### GAPS
+#
 #                       GAPS                                 # 
 #  using the github package: https://github.com/Airblader/i3 #
 # gaps inner|outer|horizontal|vertical|top|right
